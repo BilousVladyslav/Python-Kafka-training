@@ -1,0 +1,5 @@
+# For testing
+flake8==3.9.2
+
+# Kafka support
+confluent-kafka==1.7.0

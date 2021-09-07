@@ -1,0 +1,13 @@
+-r ./base.txt
+
+# Test coverage
+coverage==4.5.4
+
+# command line utility for displaying the installed python packages in form of a dependency tree
+pipdeptree==2.0.0
+
+# Utility for organizing Python imports using PEP8
+importanize==0.7.0
+
+# Vulture finds unused code in Python programs.
+vulture==2.3

@@ -1,0 +1,48 @@
+version: '3.7'
+
+x-variables: &variables
+  ENV_STAGE: local
+  BROKER_URL: "broker:29092"
+  TOPIC: "python_kafka"
+  GROUP_ID: "DEFAULT_GROUP"
+
+
+services:
+  consumer:
+    build:
+      context: .
+      dockerfile: consumer/Dockerfile
+    entrypoint: /entrypoint.sh
+    volumes:
+      - ./consumer/:/usr/src/web/:cached
+    environment:
+      <<: *variables
+    restart: unless-stopped
+    networks:
+      - microservice_network
+    extra_hosts:
+      - "docker-gateway-host:172.17.0.1"  # Linux OS get access from docker container to localhost
+      # host.docker.internal - For docker in Windows. No other action is required.
+      # If You need to connect to PostgreSql in localhost, just use host.docker.internal instead of localhost
+
+  producer:
+    build:
+      context: .
+      dockerfile: producer/Dockerfile
+    entrypoint: /entrypoint.sh
+    volumes:
+      - ./consumer/:/usr/src/web/:cached
+    environment:
+      <<: *variables
+    restart: unless-stopped
+    networks:
+      - microservice_network
+    extra_hosts:
+      - "docker-gateway-host:172.17.0.1"  # Linux OS get access from docker container to localhost
+      # host.docker.internal - For docker in Windows. No other action is required.
+      # If You need to connect to PostgreSql in localhost, just use host.docker.internal instead of localhost
+
+networks:
+  microservice_network:
+    driver: bridge
+    name: local_microservice_network
