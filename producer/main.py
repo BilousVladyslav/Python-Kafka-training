@@ -13,7 +13,7 @@ MESSAGES_COUNT = int(environ.get('MESSAGES_COUNT', 10))
 HOSTNAME = 'producer_' + environ.get('HOSTNAME', 'default')
 
 # use objects instead of strings
-# TODO: scale producers
+# scale producers
 
 
 @dataclass
